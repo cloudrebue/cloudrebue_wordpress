@@ -13,7 +13,7 @@ Send Woocomerce Notifications, Access Bulk SMS Portal
 
 This plugin enables you to Send Woocomerce Notifications Via SMS and Access Bulk SMS Portal straight from the WordPress backend or via the programmers API.
 
-All you need is the plugin and a free [cloudrebue.co.ke](https://bulk.cloudrebue.co.ke)-account.
+All you need is the plugin and [bulk.cloudrebue.co.ke](https://bulk.cloudrebue.co.ke) account.
 
 Main features:
 
@@ -26,7 +26,7 @@ Main features:
 
 **Easy to get started:**
 
-- Live chat support and mail support from cloudrebue.co.ke
+- Live chat support and mail support from bulk.cloudrebue.co.ke
 
 **Backed by high quality, lowest pricing SMS-gateway:**
 
