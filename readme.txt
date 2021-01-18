@@ -36,9 +36,9 @@ Main features:
 This section describes how to install the plugin and get it working.
 
 1. If you haven't already, then go to [bulk.cloudrebue.co.ke](https://bulk.cloudrebue.co.ke) and create a free account.
-1. Install and activate the plugin.
-1. Go to "Settings » CloudRebueSMS Settings" and add Your account details from your bulk.cloudrebue.co.ke account.
-1. (Optional) Enable the SMS Portal UI and then go to "Cloud Rebue SMS » SMS Portal" and try to send an SMS to yourself, verifying that all is setup correctly. You will be required to login with your account username and password.
+2. Install and activate the plugin.
+3. Go to "Settings » CloudRebueSMS Settings" and add Your account details from your bulk.cloudrebue.co.ke account.
+4. (Optional) Enable the SMS Portal UI and then go to "Cloud Rebue SMS » SMS Portal" and try to send an SMS to yourself, verifying that all is setup correctly. You will be required to login with your account username and password.
 
 
 == Frequently Asked Questions ==
@@ -47,7 +47,6 @@ This section describes how to install the plugin and get it working.
 
 Yes, It works really well; You have been provided with a number of woo merge tags to use eg Hi %billing_first_name%, 
 We have finished processing your order #%order_number% amounting to %order_total%. Thank you. 
-
 
 
 
