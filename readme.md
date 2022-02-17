@@ -38,7 +38,7 @@ This section describes how to install the plugin and get it working.
 
 ## Screenshots
 
-![Token](https://https://github.com/cloudrebue/cloudrebue_wordpress/blob/master/Screenshot_1.png)
+![Token](https://github.com/cloudrebue/cloudrebue_wordpress/blob/master/Screenshot_1.png)
 
 
 ## Frequently Asked Questions
