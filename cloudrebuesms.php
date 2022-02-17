@@ -1,21 +1,28 @@
 <?php
 /*
 Plugin Name: Cloud Rebue WPSMS
-Plugin URI:  https://github.com/cloudrebue/cloudrebue_wordpress
-Description: Send or broadcast SMS through WordPress; send SMS WooCommerce Order Notifications.
-Version:     1.0.0
+Plugin URI:  https://wordpress.org/plugins/cloud-rebue-wpsms
+Description: send SMS WooCommerce Order Notifications in wordpress using Cloud Rebue API.
+Version:     1.0.4
 Author:      Cloud Rebue
 Author URI:  http://cloudrebue.co.ke/
-License:     MIT
-License URI: https://opensource.org/licenses/MIT
+Developer: Cloud Rebue
+Developer URI: http://cloudrebue.co.ke/
+Text Domain: woocommerce-extension
+
+WC requires at least: 4.6
+WC tested up to: 5.9.0
+
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: crsms
-Domain Path: /languages
 */
 if (!defined('ABSPATH')) die('Cannot be accessed directly!');
 const CLOUDREBUESMS_VERSION = '1.0.0';
-function _crsms_dir(){ return __DIR__; }
 
-function _crsms_url(){
+function crbsms_dir(){ return __DIR__; }
+
+function crbsms_url(){
     static $dir;
     if ($dir) return $dir;
     $dir = plugin_dir_url(__FILE__);
@@ -35,68 +42,54 @@ function crsms_send_sms($message, $recipients, $senderid='',$send_at=0, $flash=0
 		}
 		else $recipients=implode(',',$recipients);
 	}
-	$account_id=get_option('account_id');
-	$account_api_key=get_option('account_api_key');
+	// $account_id=get_option('account_id');
+	$token=get_option('crsms_token');
 	$senderid=$senderid?:get_option('crsms_default_sender');
-	$token = base64_encode($account_id.':'.$account_api_key);
+	// $token = base64_encode($account_id.':'.$account_api_key);
 	
 	$default_unicode=get_option('crsms_default_unicode',0);
     if($unicode===null)$unicode=$default_unicode;
     
 	$post_data=array(
-	'action'=>'send_sms',
-	'sender'=>$senderid,
-	'phone'=>$recipients,
-	'correlator'=>'wp-sms',
-	'link_id'=>null,
-	'message'=>$message
-	);
+		'action'=>'send_sms',
+		'sender'=>$senderid,
+		'phone'=>$recipients,
+		'correlator'=>'wp-sms',
+		'link_id'=>null,
+		'endpoint'=>null,
+		'message'=>$message
+		);
+
 	if(!empty($contacts))$post_data['contacts']=$contacts;
 	
 	if(!empty($flash))$post_data['type']=$flash;
 	if(!empty($send_at))$post_data['send_at']=date('Y-m-d H:i',$send_at);
 	
+ 	$endpoint = "https://bulk.cloudrebue.co.ke/api/v1/send-sms";
+
 	$data_string = json_encode($post_data);
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL,'https://bulk.cloudrebue.co.ke/api/v1/send-wpsms');
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-     'Content-Type: application/json','Accept: application/json','Authorization:Basic '.$token,
-     'Content-Length: ' . strlen($data_string))
- );
-	
-	$response = curl_exec($ch);
-	$response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	if($response_code != 200)$response=curl_error($ch);
-	curl_close($ch);
 
-	$resps=array('total'=>0);
+	$response = wp_remote_post(
+	$endpoint,
+	array(
+		'headers' => array(
+			'Content-Type'  => 'application/json',
+			'Authorization' => 'Bearer ' . $token,
+		),
+		'body'    => $data_string,
+	)
+	);
+	$result = is_wp_error($response)
+	? array('errorCode' => 1, 'errorMessage' => wp_remote_retrieve_response_message($response))
+	: json_decode($response['body'], true);
 
-	if($response_code != 200)$resps['error']="HTTP ERROR $response_code: $response";
-	else {
-		$json=@json_decode($response,true);
-		
-		if($json===null)$resps['error']="INVALID RESPONSE: $response"; 
-		elseif(!empty($json['error']))$resps['error']=$json['error'];
-		else {
-			//$json['total'];
-			return $json['message'];
-		}
-	}
-	
-	return new WP_Error('CRSMS_FAIL', $resps['error']);
+	return is_null()
+	? $result
+	: call_user_func('', $result);
 }
 
 add_action('init', function () {
-    $D = _crsms_dir();
-	
-    if (get_option('crsms_enable_ui')) {
-        include "$D/inc/admin_widget_menu.php";
-		add_action( 'admin_menu', 'crsms_widget_menu' );
-    }
-	
+    $D = crbsms_dir();
 
     if (!current_user_can('edit_others_posts')) return;
 
@@ -106,15 +99,15 @@ add_action('init', function () {
 		add_submenu_page('options-general.php', __('CloudRebueSMS Settings', 'cloudrebuesms'), __('CloudRebueSMS Settings', 'cloudrebuesms'), 'administrator', 'cloudrebuesms', function () {
 			wp_enqueue_script('jquery-ui-tooltip');
 			wp_enqueue_script('jquery-ui-sortable');
-			include _crsms_dir() . "/templates/settings_page.php";
+			include crbsms_dir() . "/templates/settings_page.php";
 		});
 	});
 
 	add_action('admin_init', function () {
 		register_setting('cloudrebuesms', 'account_id');
 		register_setting('cloudrebuesms', 'account_api_key');
+		register_setting('cloudrebuesms', 'crsms_token');
 		register_setting('cloudrebuesms', 'crsms_default_sender');
-		register_setting('cloudrebuesms', 'crsms_enable_ui');
         
 		register_setting('cloudrebuesms', 'crsms_notif_wc-new');
 		register_setting('cloudrebuesms', 'crsms_notif_wc-payment');
@@ -128,7 +121,7 @@ add_action('init', function () {
 	
 }, 9);
 
-function _crsms_replace_placeholders($template,$order,array $more_values=array()){
+function crsms_replace_placeholders($template,$order,array $more_values=array()){
     $values=array();
     $values['billing_first_name']=$order->billing_first_name;
     $values['billing_last_name']=$order->billing_last_name;
@@ -155,7 +148,7 @@ function crsms_woo_order_status_changed($order_id,$old_status,$new_status) {
     $message_template=trim(get_option("crsms_notif_wc-$new_status"));
     if(empty($message_template))return;
     
-    $message=_crsms_replace_placeholders($message_template,$order);
+    $message=crsms_replace_placeholders($message_template,$order);
     crsms_send_sms($message,$recipient);
 }
 add_action('woocommerce_order_status_changed', 'crsms_woo_order_status_changed', 10, 3);
@@ -166,7 +159,7 @@ add_action('woocommerce_new_order',function($order_id){
     if(empty($recipient))return;
     $message_template=trim(get_option("crsms_notif_wc-new"));
     if(empty($message_template))return;
-    $message=_crsms_replace_placeholders($message_template,$order);
+    $message=crsms_replace_placeholders($message_template,$order);
     crsms_send_sms($message,$recipient);
 });
 
@@ -181,7 +174,7 @@ add_action('woocommerce_payment_complete',function($order_id){
     $user = $order->get_user();
     if($user ){} // do something with the user
     */
-    $message=_crsms_replace_placeholders($message_template,$order);
+    $message=crsms_replace_placeholders($message_template,$order);
     crsms_send_sms($message,$recipient);
 });
 
