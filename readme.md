@@ -38,7 +38,11 @@ This section describes how to install the plugin and get it working.
 
 ## Screenshots
 
+### Generate Token in your bulk account
 ![Token](https://github.com/cloudrebue/cloudrebue_wordpress/blob/master/Screenshot_1.png)
+
+### Enter token in settings
+![Token](https://github.com/cloudrebue/cloudrebue_wordpress/blob/master/Screenshot_2.png)
 
 
 ## Frequently Asked Questions
