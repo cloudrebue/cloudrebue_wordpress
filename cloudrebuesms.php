@@ -3,7 +3,7 @@
 Plugin Name: Cloud Rebue WPSMS
 Plugin URI:  https://wordpress.org/plugins/cloud-rebue-wpsms
 Description: send SMS WooCommerce Order Notifications in wordpress using Cloud Rebue API.
-Version:     1.0.4
+Version:     1.0.6
 Author:      Cloud Rebue
 Author URI:  http://cloudrebue.co.ke/
 Developer: Cloud Rebue
@@ -11,7 +11,7 @@ Developer URI: http://cloudrebue.co.ke/
 Text Domain: woocommerce-extension
 
 WC requires at least: 4.6
-WC tested up to: 5.9.0
+WC tested up to: 6.3.1
 
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -82,10 +82,6 @@ function crsms_send_sms($message, $recipients, $senderid='',$send_at=0, $flash=0
 	$result = is_wp_error($response)
 	? array('errorCode' => 1, 'errorMessage' => wp_remote_retrieve_response_message($response))
 	: json_decode($response['body'], true);
-
-	return is_null()
-	? $result
-	: call_user_func('', $result);
 }
 
 add_action('init', function () {
@@ -96,7 +92,7 @@ add_action('init', function () {
 	add_action('admin_menu', function () {
 		if (!current_user_can('activate_plugins')) return;
 
-		add_submenu_page('options-general.php', __('CloudRebueSMS Settings', 'cloudrebuesms'), __('CloudRebueSMS Settings', 'cloudrebuesms'), 'administrator', 'cloudrebuesms', function () {
+		add_submenu_page('options-general.php', __('Rebue SMS Settings', 'cloudrebuesms'), __('Rebue SMS Settings', 'cloudrebuesms'), 'administrator', 'cloudrebuesms', function () {
 			wp_enqueue_script('jquery-ui-tooltip');
 			wp_enqueue_script('jquery-ui-sortable');
 			include crbsms_dir() . "/templates/settings_page.php";
