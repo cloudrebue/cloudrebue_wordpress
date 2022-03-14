@@ -1,8 +1,9 @@
 # Cloud Rebue Bulk SMS API
 Contributors: [Edward Muss](https://github.com/edwardmuss)
 Requires at least: `WordPress v5.6`
-Tested up to: `WordPress 5.9`
-Version: `1.0.5`
+Tested up to: `WordPress 5.9.2`
+
+Version: `1.0.6`
 Requires PHP Version: `7.0`
 License: GPLv3
 License URI: [https://www.gnu.org/licenses/gpl-3.0.html](https://www.gnu.org/licenses/gpl-3.0.html)
