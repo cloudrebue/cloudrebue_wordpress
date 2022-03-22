@@ -1,38 +1,38 @@
 /**
  * Receive SMS
  */
-body.post-type-cgsms-receive-sms table.cgsms-receive-sms-table td {
+body.post-type-crsms-receive-sms table.crsms-receive-sms-table td {
     padding-bottom: 0px;
 }
-body.post-type-cgsms-receive-sms .wrap a.page-title-action,
-body.post-type-cgsms-receive-sms .postbox-container #minor-publishing-actions,
-body.post-type-cgsms-receive-sms .postbox-container #publishing-action input[name="save"],
-body.post-type-cgsms-receive-sms .postbox-container .misc-pub-section.misc-pub-visibility,
-body.post-type-cgsms-receive-sms .postbox-container .edit-post-status,
-body.post-type-cgsms-receive-sms .postbox-container .edit-visibility,
-body.post-type-cgsms-receive-sms .postbox-container .edit-timestamp {
+body.post-type-crsms-receive-sms .wrap a.page-title-action,
+body.post-type-crsms-receive-sms .postbox-container #minor-publishing-actions,
+body.post-type-crsms-receive-sms .postbox-container #publishing-action input[name="save"],
+body.post-type-crsms-receive-sms .postbox-container .misc-pub-section.misc-pub-visibility,
+body.post-type-crsms-receive-sms .postbox-container .edit-post-status,
+body.post-type-crsms-receive-sms .postbox-container .edit-visibility,
+body.post-type-crsms-receive-sms .postbox-container .edit-timestamp {
     display: none !important;
 }
-body.post-type-cgsms-receive-sms abbr {
+body.post-type-crsms-receive-sms abbr {
     border-bottom: 1px dotted black;
 }
 
-body.post-type-cgsms-sms abbr {
+body.post-type-crsms-sms abbr {
     border-bottom: 1px dotted black;
 }
 
-body.post-type-cgsms-sms .sms-length-counter,
-body.post-type-cgsms-receive-action .sms-length-counter {
+body.post-type-crsms-sms .sms-length-counter,
+body.post-type-crsms-receive-action .sms-length-counter {
     text-align: right;
     font-style: italic;
     color: grey;
 }
 
-body.post-type-cgsms-sms .misc-pub-section.misc-pub-visibility {
+body.post-type-crsms-sms .misc-pub-section.misc-pub-visibility {
     display: none;
 }
 
-.cgsms-field-error-message {
+.crsms-field-error-message {
     color: white;
     background-color: #f57f7d;
     border: 1px solid red;
@@ -41,16 +41,16 @@ body.post-type-cgsms-sms .misc-pub-section.misc-pub-visibility {
     padding: 5px 8px;
 }
 
-.cgsms-checkbox {
+.crsms-checkbox {
     display: block;
     padding: 5px 0px;
 }
 
-.cgsms-checkbox:hover {
+.crsms-checkbox:hover {
     background-color: #f0f0f0;
 }
 
-.cgsms-checkbox .number {
+.crsms-checkbox .number {
     border-radius: 100px 100px;
     padding: 1px 10px;
     background-color: #e5e5e5;
@@ -58,43 +58,43 @@ body.post-type-cgsms-sms .misc-pub-section.misc-pub-visibility {
     font-size: 0.8em;
 }
 
-.cgsms-checkbox input:disabled + span {
+.crsms-checkbox input:disabled + span {
     opacity: 0.3;
 }
 
 /* primitive grid */
-.cgsms-row {
+.crsms-row {
     margin-left: -15px;
     margin-right: -15px;
 }
 
-.cgsms-row:after {
+.crsms-row:after {
     content: '';
     display: block;
     clear: both;
 }
 
-.cgsms-row .col-30 {
+.crsms-row .col-30 {
     width: 30%;
 }
 
-.cgsms-row .col-40 {
+.crsms-row .col-40 {
     width: 40%;
 }
 
-.cgsms-row .col-50 {
+.crsms-row .col-50 {
     width: 50%;
 }
 
-.cgsms-row .col-60 {
+.crsms-row .col-60 {
     width: 60%;
 }
 
-.cgsms-row .col-70 {
+.crsms-row .col-70 {
     width: 70%;
 }
 
-.cgsms-row .col-30, .cgsms-row .col-40, .cgsms-row .col-50, .cgsms-row .col-60, .cgsms-row .col-70 {
+.crsms-row .col-30, .crsms-row .col-40, .crsms-row .col-50, .crsms-row .col-60, .crsms-row .col-70 {
     padding-left: 15px;
     padding-right: 15px;
     box-sizing: border-box;
@@ -102,7 +102,7 @@ body.post-type-cgsms-sms .misc-pub-section.misc-pub-visibility {
 }
 
 @media (max-width: 991px) {
-    .cgsms-row .col-30, .cgsms-row .col-40, .cgsms-row .col-50, .cgsms-row .col-60, .cgsms-row .col-70 {
+    .crsms-row .col-30, .crsms-row .col-40, .crsms-row .col-50, .crsms-row .col-60, .crsms-row .col-70 {
         width: 100%;
     }
 }
@@ -196,9 +196,9 @@ body.post-type-cgsms-sms .misc-pub-section.misc-pub-visibility {
 }
 
 /* remove parent-feature and slug of recipient groups */
-body.taxonomy-cgsms-recipient-groups .term-parent-wrap,
-body.taxonomy-cgsms-recipient-groups .term-slug-wrap,
-body.taxonomy-cgsms-recipient-groups .column-slug,
+body.taxonomy-crsms-recipient-groups .term-parent-wrap,
+body.taxonomy-crsms-recipient-groups .term-slug-wrap,
+body.taxonomy-crsms-recipient-groups .column-slug,
 #newcgsms-recipient-groups_parent {
     display: none;
 }
@@ -209,24 +209,24 @@ body.taxonomy-cgsms-recipient-groups .column-slug,
 }
 
 /* sending ui: recipient groups list scroll */
-body.post-type-cgsms-sms .recipient-groups .inner {
+body.post-type-crsms-sms .recipient-groups .inner {
     height: 150px;
     overflow: auto;
 }
 
-body.post-type-cgsms-sms .clearfix {
+body.post-type-crsms-sms .clearfix {
     clear: both;
 }
 
-body.post-type-cgsms-sms .footer {
+body.post-type-crsms-sms .footer {
     margin-top: 15px;
     border-top: 1px solid #efefef;
     padding-top: 10px;
 }
 
 /* inline editor: disable inline edit */
-body.post-type-cgsms-sms .inline-edit-col,
-body.post-type-cgsms-sms .row-actions .inline {
+body.post-type-crsms-sms .inline-edit-col,
+body.post-type-crsms-sms .row-actions .inline {
     display: none;
 }
 
@@ -317,7 +317,7 @@ i.info {
     background-repeat: no-repeat;
 }
 
-.cgsms-about-help {
+.crsms-about-help {
     background-color: #04b0db;
     border-color: #1d70a8;
     color: white;
@@ -325,7 +325,7 @@ i.info {
     font-size: 1.2em;
 }
 
-.cgsms-about-help a {
+.crsms-about-help a {
     color: white;
 }
 
