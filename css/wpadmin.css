@@ -1,6 +1,10 @@
 /**
  * Receive SMS
  */
+
+ .wrap {
+    background-color: red;
+}
 body.post-type-crsms-receive-sms table.crsms-receive-sms-table td {
     padding-bottom: 0px;
 }
